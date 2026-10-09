@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAND Corporation — Telemetry Consolidation & Enterprise SecOps Strategy | Cisco & Splunk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #07182D;
+            --bg-surface: #0D233E;
+            --bg-card: rgba(15, 33, 58, 0.85);
+            --cisco-blue: #049FD9;
+            --sky-cyan: #00BCEB;
+            --splunk-coral: #EB4E3D;
+            --gold-accent: #FBAB18;
+            --safe-green: #10B981;
+            --threat-red: #E2231A;
+            --border-subtle: rgba(0, 188, 235, 0.2);
+            --border-highlight: rgba(0, 188, 235, 0.5);
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --text-dim: #64748B;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(4, 159, 217, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 50%, rgba(235, 78, 61, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(7, 24, 45, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 14px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .brand-badge-group { display: flex; align-items: center; gap: 10px; }
+        .cisco-tag {
+            background: linear-gradient(135deg, var(--cisco-blue), var(--sky-cyan));
+            color: #FFFFFF; font-weight: 900; font-size: 13px; letter-spacing: 1.5px;
+            padding: 5px 12px; border-radius: 6px; box-shadow: 0 0 12px rgba(0, 188, 235, 0.4);
+        }
+        .splunk-tag {
+            background: linear-gradient(135deg, #C23020, var(--splunk-coral));
+            color: #FFFFFF; font-weight: 900; font-size: 13px; letter-spacing: 1.5px;
+            padding: 5px 12px; border-radius: 6px; box-shadow: 0 0 12px rgba(235, 78, 61, 0.4);
+        }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; }
+        .nav-links a:hover { color: var(--sky-cyan); }
+
+        .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px 24px; }
+        .hero { padding: 40px 0 50px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 50px; }
+        .hero h1 { font-size: 38px; font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+        .hero-subtitle { font-size: 16.5px; color: var(--text-muted); max-width: 900px; margin-bottom: 30px; }
+
+        .hero-stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+        .stat-card {
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            padding: 20px; border-radius: 10px; backdrop-filter: blur(10px);
+        }
+        .stat-val { font-size: 32px; font-weight: 900; color: var(--safe-green); line-height: 1; margin-bottom: 6px; }
+        .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; }
+
+        section { margin-bottom: 60px; scroll-margin-top: 84px; }
+        .section-header { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .section-number {
+            background: var(--cisco-blue); color: #FFFFFF; width: 28px; height: 28px;
+            border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px;
+        }
+        .section-header h2 { font-size: 24px; font-weight: 800; }
+
+        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .pillar-card {
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .pillar-tag { font-size: 10.5px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
+.tag-coral { background: rgba(235, 78, 61, 0.15); color: #FFA59E; border: 1px solid var(--splunk-coral); }
+        .tag-gold { background: rgba(251, 171, 24, 0.15); color: #FDE68A; border: 1px solid var(--gold-accent); }
+        .tag-blue { background: rgba(0, 188, 235, 0.15); color: #7DD3FC; border: 1px solid var(--sky-cyan); }
+
+        .pillar-list { list-style: none; margin-bottom: 20px; font-size: 13px; color: #CBD5E1; }
+        .pillar-list li { margin-bottom: 8px; padding-left: 18px; position: relative; }
+        .pillar-list li::before { content: "•"; position: absolute; left: 0; color: var(--sky-cyan); }
+
+        .code-container {
+            background: #040E1B; border: 1px solid rgba(0, 188, 235, 0.25); border-radius: 8px;
+            padding: 18px; font-family: 'JetBrains Mono', Courier, monospace; font-size: 11px; color: #E2E8F0; overflow-x: auto;
+            white-space: pre; line-height: 1.45;
+        }
+
+        @media (max-width: 860px) {
+            .nav-container { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .brand-badge-group { flex-wrap: wrap; }
+            .hero h1 { font-size: 28px; }
+            .nav-links { flex-wrap: wrap; gap: 14px; }
+        }
+
+        .table-responsive { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border-subtle); background: var(--bg-card); }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { background: #0A2540; color: var(--sky-cyan); font-weight: 700; padding: 14px 18px; text-transform: uppercase; font-size: 11px; }
+        td { padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: #CBD5E1; }
+        tr:hover td { background: rgba(0, 188, 235, 0.05); }
+
+        footer { border-top: 1px solid var(--border-subtle); padding: 30px 0; text-align: center; font-size: 12px; color: var(--text-dim); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="brand-badge-group">
+                <span class="cisco-tag">CISCO</span>
+                <span class="splunk-tag">SPLUNK</span>
+                <strong style="font-size:15px;">RAND Corporation • SecOps Modernization & EA Strategy</strong>
+            </div>
+            <nav class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#pillars">3 Pillars</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#financials">TCO Financials</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <section class="hero" id="overview">
+            <h1>Unified Telemetry Modernization & 3-Year TCO Optimization</h1>
+            <p class="hero-subtitle">
+                Replace Cribl with native Splunk Edge Processor, upgrade to Splunk Enterprise Security (ES) Premier, and consolidate under Cisco Signature CXEA within Cisco EA 3.0 to capture $1.48M in net cash savings.
+            </p>
+            <div class="hero-stat-strip">
+                <div class="stat-card">
+                    <div class="stat-val">$1.48M</div>
+                    <div class="stat-label">3-Year Net Savings (38.6%)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">35.0%</div>
+                    <div class="stat-label">Ingestion Volume Cut</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">75.0%</div>
+                    <div class="stat-label">SOC Alert Fatigue Reduction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">$439K</div>
+                    <div class="stat-label">Service Contract Credit</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pillars">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2>The 3 Strategic Pillars of Transformation</h2>
+            </div>
+            <div class="pillar-grid">
+                <div class="pillar-card">
+                    <div>
+                        <span class="pillar-tag tag-coral">Pillar 1 • Telemetry Efficiency</span>
+                        <h3 style="font-size:18px; margin-bottom:12px;">Replace Cribl with Splunk Edge</h3>
+                        <ul class="pillar-list">
+                            <li>$0 Incremental Software Fee (Included entitlement in Splunk Cloud).</li>
+                            <li>Retires $540K/3-Yr Cribl software and VM compute expense.</li>
+                            <li>35% Perimeter reduction (800 GB/day down to 520 GB/day).</li>
+                            <li>Unified SPL2 authoring syntax across edge and cloud.</li>
+                        </ul>
+                    </div>
+                    <strong style="color:var(--gold-accent); font-size:15px;">$540,000 Cribl Spend Retired</strong>
+                </div>
+
+                <div class="pillar-card">
+                    <div>
+                        <span class="pillar-tag tag-gold">Pillar 2 • SecOps Posture</span>
+                        <h3 style="font-size:18px; margin-bottom:12px;">Upgrade to ES Premier</h3>
+                        <ul class="pillar-list">
+                      <li>Risk-Based Alerting (RBA) slashes SOC alert fatigue by 75%.</li>
+                            <li>Behavioral Machine Learning on CUI research data exfiltration.</li>
+                            <li>Threat Intelligence Management (TIM) automated feed scoring.</li>
+                            <li>Continuous NIST SP 800-171 and CMMC 2.0 compliance audit views.</li>
+                        </ul>
+                    </div>
+                    <strong style="color:var(--safe-green); font-size:15px;">75.0% Alert Volume Cut</strong>
+                </div>
+
+                <div class="pillar-card">
+                    <div>
+                        <span class="pillar-tag tag-blue">Pillar 3 • Operational Synergy</span>
+                        <h3 style="font-size:18px; margin-bottom:12px;">Consolidate via Signature CXEA</h3>
+                        <ul class="pillar-list">
+                            <li>Designated High-Touch Operations Manager (HTOM) lead engineer.</li>
+                            <li>15% Multi-Suite Discount (-$394K) in Cisco EA 3.0.</li>
+                            <li>$439K in residual service contract equity applied Day 1.</li>
+                            <li>Single master invoice governance replacing fragmented point contracts.</li>
+                        </ul>
+                    </div>
+                    <strong style="color:var(--sky-cyan); font-size:15px;">$439,000 Residual Credit</strong>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2>Unified Data Architecture & Pipeline Topology</h2>
+            </div>
+            <div class="code-container">
+========================================================================================================
+                          RAND CORPORATION UNIFIED DATA PIPELINE
+========================================================================================================
+
+   [ ENTERPRISE LOG SOURCES ]
+   • Firewalls / NetFlow (Palo Alto, Cisco Secure) ───┐
+   • Multi-Cloud VMs (Azure, GCP, On-Premises)    ───┼──> [ SPLUNK EDGE PROCESSOR ]
+   • Endpoints & Identity (Okta, CrowdStrike)      ───┘   • In-Flight PII / CUI Masking
+   • Windows Event Logs & Syslog Sources                  • 35% Ingestion Noise Reduction (-280 GB/day)
+                                                          • SPL2 Native Transformation
+                                                          • $0 Additional Software Fee
+                                                                      │
+                                        ┌─────────────────────────────┴─────────────────────────────┐
+                                        ▼                                                           ▼
+                         [ SPLUNK CLOUD ES PREMIER ]                                   [ COLD COMPLIANCE ARCHIVE ]
+                         • 520 GB/day High-Fidelity Ingest                             • Low-Cost S3 / Azure Blob
+                         • Risk-Based Alerting (75% Noise Drop)                        • Raw Log Retention (7+ Years)
+                         • CUI Research Behavioral Analytics                           • Federated Search Direct Query
+                         • Threat Intelligence Management (TIM)                        • NIST / CMMC Compliance Safe
+========================================================================================================
+            </div>
+        </section>
+
+        <section id="financials">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2>3-Year Comprehensive TCO Financial Model</h2>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cost Component</th>
+                            <th>Year 1 (FY27)</th>
+                            <th>Year 2 (FY28)</th>
+                            <th>Year 3 (FY29)</th>
+                            <th>3-Year Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Scenario A: Status Quo (Cribl + Core SIEM)</strong></td>
+                            <td>$1,069,366</td>
+                            <td>$1,265,490</td>
+                            <td>$1,500,500</td>
+                            <td style="color:var(--threat-red); font-weight:700;">$3,835,356</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scenario B: Splunk Edge + EA 3.0 + ES Premier + CXEA</strong></td>
+                            <td>$374,966</td>
+                            <td>$924,976</td>
+                            <td>$1,055,640</td>
+               <td style="color:var(--safe-green); font-weight:700;">$2,355,582</td>
+                        </tr>
+                        <tr style="background:rgba(16,185,129,0.08);">
+                            <td><strong style="color:var(--gold-accent);">NET 3-YEAR CASH SAVINGS</strong></td>
+                            <td style="color:var(--safe-green); font-weight:800;">+$694,400</td>
+                            <td style="color:var(--safe-green); font-weight:800;">+$340,514</td>
+                            <td style="color:var(--safe-green); font-weight:800;">+$444,860</td>
+                            <td style="color:var(--safe-green); font-weight:900; font-size:15px;">+$1,479,774 (38.6%)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p><strong>Cisco & Splunk Strategic Architecture Proposal</strong> • Prepared for RAND Corporation (SAVM ID: 203811680)</p>
+        <p>Portfolio Account Manager: Elyse Tangri (etangri@cisco.com) | Cisco LA Select Commercial</p>
+    </footer>
+</body>
+</html>
